@@ -56,11 +56,11 @@ export class TodoService {
     });
   }
 
-  removeItemsChecked( ...items: TodoItemData[] ) {
+  removeCheckedItems( ...items: TodoItemData[] ) {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {
       label: tdl.label, // ou on peut écrire: ...tdl,
-      items: tdl.items.filter( I => items.indexOf(I) === -1 )
+      items: tdl.items.filter( I => I.isDone === false )
     });
   }
 

@@ -56,6 +56,6 @@ export class TodoListComponent implements OnInit {
     } 
 
     itemDeleteChecked(item: TodoItemData) {
-        this.todoService.removeItemsChecked(item);
+        this.todoService.removeCheckedItems(item);
     } 
 }

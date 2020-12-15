@@ -11,7 +11,7 @@ import {TodoService} from '../todo.service';
 export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData; 
-    public filterData = '';
+    private filterData = '';
     
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
@@ -32,6 +32,11 @@ export class TodoListComponent implements OnInit {
         }else{
             return this.todoList.items;
         }
+    }
+
+    get nbofActif(): number {
+        return this.todoList.items.filter(I => I.isDone == false).length;
+        
     }
 
     appendItem(label: string){

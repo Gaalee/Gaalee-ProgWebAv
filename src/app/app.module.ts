@@ -8,7 +8,6 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import {TodoService} from './todo.service';
 import {FormsModule} from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     AppComponent,

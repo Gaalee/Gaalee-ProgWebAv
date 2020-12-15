@@ -11,6 +11,7 @@ import {TodoService} from '../todo.service';
 export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData; 
+    public filterData = '';
     
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
@@ -24,7 +25,13 @@ export class TodoListComponent implements OnInit {
     }
     
     get items(): TodoItemData[] {
-        return this.todoList.items;
+        if(this.filterData == 'completed'){
+            return this.todoList.items.filter(I => I.isDone == true);
+        }else if(this.filterData == 'actif'){
+            return this.todoList.items.filter(I => I.isDone == false);
+        }else{
+            return this.todoList.items;
+        }
     }
 
     appendItem(label: string){
@@ -36,15 +43,12 @@ export class TodoListComponent implements OnInit {
     }
 
     itemDone(item: TodoItemData, done:boolean){
-        console.log(done);
-        console.log(item);
         this.todoService.setItemsDone(done,item);
     }
 
     itemLabel(item: TodoItemData, label:string){
         item.isEdit = false;
         this.todoService.setItemsLabel(label,item);
-        
     }
 
     itemEdit(item: TodoItemData, edit:boolean){
@@ -57,5 +61,9 @@ export class TodoListComponent implements OnInit {
 
     itemDeleteChecked(item: TodoItemData) {
         this.todoService.removeCheckedItems(item);
+    } 
+
+    ApplyFilter(category: string) {
+        this.filterData = category; 
     } 
 }

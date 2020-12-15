@@ -15,15 +15,15 @@
             name="toggleAll"
     />
     <ul class="todo-list">
-      <li data-id="456" *ngFor="let item of items">
+      <li *ngFor="let item of items">
         <input class="toggle" type="checkbox" [ngModel]="item.isDone" (ngModelChange)="itemDone(item,$event)" />
         <label *ngIf="!item.isEdit; else elseBlock" [ngClass]="{'completed': item.isDone}" (dblclick)="itemEdit(item,true)">{{ item.label }}</label>
           <ng-template #elseBlock>
             <form (submit)="itemLabel(item, newLab.value)">
               <input class="editer" type="text" name="label" [ngModel]="item.label" #newLab/>
             </form>
-          </ng-template>
         <button class="destroy" (click)="itemDelete(item)"></button>
+        </ng-template>
       </li>
     </ul>
   </section>
@@ -31,13 +31,13 @@
     <span class="todo-count"><strong></strong> restantes</span>
     <ul class="filters">
       <li>
-        <a class="filterAll">Tous</a>
+        <a class="filterAll" (click)="ApplyFilter('')">Tous</a>
       </li>
       <li>
-        <a class="filterActives">Actifs</a>
+        <a class="filterActives" (click)="ApplyFilter('actif')">Actifs</a>
       </li>
       <li>
-        <a class="filterCompleted">Complétés</a>
+        <a class="filterCompleted" (click)="ApplyFilter('completed')">Complétés</a>
       </li>
     </ul>
     <button class="clear-completed" (click)="itemDeleteChecked(item)">Supprimer cochées</button>

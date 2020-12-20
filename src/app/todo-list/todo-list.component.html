@@ -1,6 +1,9 @@
 <section class="todoapp">
   <header class="header">
     <h1>{{label}}</h1>
+    <div class="menu">
+      <button class="delete_all" (click)="deleteAll(item)">Tout Supprimer</button>
+    </div>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
       <input  #newTodoInput
               name        = "newTodoInput"
@@ -22,8 +25,8 @@
             <form (submit)="itemLabel(item, newLab.value)">
               <input class="editer" type="text" name="label" [ngModel]="item.label" #newLab/>
             </form>
-        <button class="destroy" (click)="itemDelete(item)"></button>
         </ng-template>
+        <button class="destroy" (click)="itemDelete(item)"></button>
       </li>
     </ul>
   </section>
@@ -40,7 +43,7 @@
         <a class="filterCompleted" (click)="ApplyFilter('completed')">Complétés</a>
       </li>
     </ul>
-    <button class="clear-completed" (click)="itemDeleteChecked(item)">Supprimer cochées</button>
+    <button class="clear-completed" (click)="itemDeleteChecked()">Supprimer cochées</button>
   </footer>
 </section>
 <hr/>

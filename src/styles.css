@@ -255,6 +255,23 @@ label[for='toggle-all'] {
   border-top: 1px solid #e6e6e6;
 }
 
+.menu {
+  color: #777;
+  padding: 10px 15px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+
+.delete_all {
+  float: right;
+  position: relative;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
 .footer:before {
   content: '';
   position: absolute;

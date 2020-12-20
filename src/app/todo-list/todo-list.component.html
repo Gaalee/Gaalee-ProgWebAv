@@ -2,7 +2,9 @@
   <header class="header">
     <h1>{{label}}</h1>
     <div class="menu">
+      <button class="qrcodemodal" (click)="generateDataQR()">Generer QRCode</button>
       <button class="delete_all" (click)="deleteAll(item)">Tout Supprimer</button>
+      
     </div>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
       <input  #newTodoInput
@@ -47,7 +49,7 @@
   </footer>
 </section>
 <hr/>
-
+<qrcode [qrdata]="todoListForQR" [width]="550" [errorCorrectionLevel]="'M'" ></qrcode>
 <!-- Version debug de la liste V5, suppression de l'item -->
 <h2>Debug V5</h2>
 <ul>

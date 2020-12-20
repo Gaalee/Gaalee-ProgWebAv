@@ -12,9 +12,10 @@ export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData; 
     private filterData = '';
+    private todoListForQR;
     
     constructor(private todoService: TodoService) {
-        todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
+        todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl);
     }
 
     ngOnInit() {
@@ -75,4 +76,12 @@ export class TodoListComponent implements OnInit {
     ApplyFilter(category: string) {
         this.filterData = category; 
     } 
+
+    generateDataQR(){
+        this.todoListForQR = this.todoList;
+        this.todoListForQR.items.forEach(e => {
+            delete e.isEdit;
+        });
+        this.todoListForQR = JSON.stringify(this.todoListForQR, null, 2);
+    }
 }

@@ -272,6 +272,15 @@ label[for='toggle-all'] {
   position: relative;
 }
 
+.qrcodemodal {
+  float: left;
+  position: relative;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
 .footer:before {
   content: '';
   position: absolute;

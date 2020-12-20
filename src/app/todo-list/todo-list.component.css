@@ -13,3 +13,21 @@
     color: #d9d9d9;
     text-decoration: line-through;
   }
+
+.msg{
+    display:none;
+}
+    
+.active{
+    display:block;
+    color:red;
+    text-align: center;
+    animation:fade 1000ms infinite;
+    -webkit-animation:fade 1000ms infinite;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.6; }
+    to { opacity: 1.0; }
+}

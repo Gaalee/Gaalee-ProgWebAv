@@ -2,23 +2,31 @@ import {Component, OnInit} from '@angular/core';
 import {TodoListData} from '../dataTypes/TodoListData';
 import {TodoItemData} from '../dataTypes/TodoItemData';
 import {TodoService} from '../todo.service';
+declare const annyang: any;
 
 @Component({
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
-    styleUrls: ['./todo-list.component.css']
+    styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent implements OnInit {
-
+    voiceActiveSectionDisabled: boolean = true;
+	voiceActiveSectionError: boolean = false;
+	voiceActiveSectionSuccess: boolean = false;
+	voiceActiveSectionListening: boolean = false;
+	voiceText: any;
     private todoList: TodoListData; 
     private filterData = '';
     private todoListForQR;
+    private listening = false;
+    
     
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl);
     }
 
     ngOnInit() {
+        annyang.setLanguage("fr-FR")
     }
     
     get label(): string {
@@ -39,6 +47,11 @@ export class TodoListComponent implements OnInit {
         return this.todoList.items.filter(I => I.isDone == false).length;
         
     }
+
+
+
+
+
 
     appendItem(label: string){
         this.todoService.appendItems({
@@ -84,4 +97,22 @@ export class TodoListComponent implements OnInit {
         });
         this.todoListForQR = JSON.stringify(this.todoListForQR, null, 2);
     }
+    
+      startlistening(){
+        if (annyang) {
+            annyang.start();
+            this.listening = true;
+            annyang.addCallback('result',(phrases) => {
+                //let label:string = phrases[0];
+                console.log(phrases[0])
+                console.log(phrases)
+                this.appendItem(phrases[0])
+            });
+        }
+      }
+
+      stoplistening(){
+          annyang.abort();
+          this.listening = false;
+      }
 }

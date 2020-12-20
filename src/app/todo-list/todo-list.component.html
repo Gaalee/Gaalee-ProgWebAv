@@ -1,10 +1,14 @@
 <section class="todoapp">
   <header class="header">
     <h1>{{label}}</h1>
+    <p class="msg" [ngClass]="{'active' : listening}">L'application vous écoute. Énumérer vos tâches en marquant des pauses entre chacune d'elles, puis cliqué à nouveau sur l'icon micro</p>
     <div class="menu">
       <button class="qrcodemodal" (click)="generateDataQR()">Generer QRCode</button>
+      <i *ngIf="!listening; else test" (click)="startlistening()" class="fa fa-microphone-slash fa-2x"aria-hidden="true"></i>
+<ng-template #test>
+  <i  class="fa fa-microphone fa-2x"  (click)="stoplistening()"></i>
+</ng-template>
       <button class="delete_all" (click)="deleteAll(item)">Tout Supprimer</button>
-      
     </div>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
       <input  #newTodoInput
@@ -51,7 +55,7 @@
 <hr/>
 <qrcode [qrdata]="todoListForQR" [width]="550" [errorCorrectionLevel]="'M'" ></qrcode>
 <!-- Version debug de la liste V5, suppression de l'item -->
-<h2>Debug V5</h2>
+<!-- <h2>Debug V5</h2>
 <ul>
     <li *ngFor="let item of items">
         <input type="checkbox" [ngModel]="item.isDone" (ngModelChange)="itemDone(item,$event)" />
@@ -61,4 +65,4 @@
         <button (click)="itemDelete(item)">Remove</button>
         <pre>{{item|json}}</pre>
     </li>
-</ul>
+</ul> -->
